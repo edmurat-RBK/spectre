@@ -10,6 +10,6 @@ public class EnemyFloat : MonoBehaviour
     private void Update()
     {
         floatingEffect += 0.05f;
-        transform.position = new Vector3(transform.position.x, transform.position.y + floatingSpread * Mathf.Sin(floatingEffect), 0f);
+        transform.position = new Vector3(transform.position.x, transform.position.y + floatingSpread * Mathf.Sin(floatingEffect), transform.position.z);
     }
 }

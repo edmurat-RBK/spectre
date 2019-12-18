@@ -20,7 +20,9 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
         direction = (camera.transform.position - transform.position).normalized;
+        transform.position = Vector3.MoveTowards(transform.position,camera.transform.position,  speed * Time.deltaTime);
 
-        transform.position += direction * speed * Time.deltaTime;
+        transform.LookAt(camera.transform);
+        transform.Rotate(new Vector3(0f, 90f, 0f));
     }
 }

@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
             if (spawnTime <= 0)
             {
                 // Spawn an enemy
-                spawnCircleArray[Random.Range(0, 3)].SpawnEnemy(Mathf.Deg2Rad * Random.Range(0f, 360f));
+                spawnCircleArray[Random.Range(0, 3)].SpawnEnemy();
                 enemyAlive = true;
 
                 // Reset spawn timer
