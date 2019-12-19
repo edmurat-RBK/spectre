@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private Spawncircle[] spawnCircleArray;
-    private AudioSource audioSource;
+    private AudioSource[] audioSource;
+    private GameObject player;
 
     [Header("Game")]
     public int level;
@@ -19,6 +20,9 @@ public class GameManager : MonoBehaviour
     [Header("Player statistics")]
     public int maxMiss;
     public int miss;
+    public bool gameOver = false;
+    public GameObject gameOverPrefab;
+    private GameObject gameOverSpawned;
 
     [Header("Spawning parameters")]
     private float spawnTime;
@@ -30,13 +34,27 @@ public class GameManager : MonoBehaviour
     public float scaleDistance;
     public float spawnDistance;
 
+    [Header("Audio")]
+    public AudioClip backgroundNormal;
+    public AudioClip backgroundGhost;
+
+    public List<Note> lastInput;
 
     private void Start()
     {
         level = 1;
         miss = 0;
 
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponents<AudioSource>();
+        audioSource[0].clip = backgroundNormal;
+        audioSource[1].clip = backgroundGhost;
+        audioSource[0].Play();
+        audioSource[1].Play();
+        audioSource[1].mute = true;
+
+        lastInput = new List<Note>(6);
+
+        player = GameObject.FindGameObjectWithTag("MainCamera");
 
         spawnCircleArray = new Spawncircle[3];
         spawnCircleArray[0] = GameObject.Find("Spawn Circle L-1").GetComponent<Spawncircle>();
@@ -66,10 +84,46 @@ public class GameManager : MonoBehaviour
                 spawnTime = spawnMaxTime + Random.Range(spawnMinRange, spawnMaxRange);
             }
         }
+
+        // Check game over
+        if(miss >= maxMiss && !gameOver)
+        {
+            gameOver = true;
+            GameOver();
+        }
+        else if(gameOver)
+        {
+            gameOverSpawned.transform.position = player.transform.TransformDirection(Vector3.forward * 2);
+        }
+
+        // Music
+        if(enemyAlive)
+        {
+            if (!audioSource[1].isPlaying)
+            {
+                audioSource[0].mute = true;
+                audioSource[1].mute = false;
+            }
+        }
+        else
+        {
+            if (!audioSource[0].isPlaying)
+            {
+                audioSource[1].mute = true;
+                audioSource[0].mute = false;
+            }
+        }
+
+        Debug.Log(lastInput[0] + " " + lastInput[1] + " " + lastInput[2] + " " + lastInput[3] + " " + lastInput[4]);
+        // Inputs
+        if(lastInput.Count > 5)
+        {
+            lastInput.RemoveAt(0);
+        }
     }
 
-    public void PlayAudioSource()
+    private void GameOver()
     {
-        audioSource.Play();
+        gameOverSpawned = Instantiate(gameOverPrefab, new Vector3(0f, 0f, 0f), new Quaternion(0f, 0f, 0f, 0f));
     }
 }
