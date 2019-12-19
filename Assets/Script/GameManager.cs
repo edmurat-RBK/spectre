@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public float scaleDistance;
     public float spawnDistance;
 
-
+    public int numberGhost;
     private void Start()
     {
         level = 1;

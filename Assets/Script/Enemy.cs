@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
 
     public void Hit()
     {
+        gameManager.numberGhost = gameManager.numberGhost + 1;
         gameManager.enemyAlive = false;
         Destroy(gameObject);
     }
