@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
     public void Hit()
     {
         gameObject.GetComponentInChildren<MeshRenderer>().material.color = new Color(255f, 255f, 255f, 192f);
-
+        gameManager.numberGhost = gameManager.numberGhost + 1;
         listening = true;
     }
 

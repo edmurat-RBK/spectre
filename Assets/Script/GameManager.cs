@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public AudioClip backgroundGhost;
 
     public List<Note> lastInput;
+    public int numberGhost;
 
     private void Start()
     {
