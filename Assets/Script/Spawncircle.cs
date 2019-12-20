@@ -11,24 +11,22 @@ public class Spawncircle : MonoBehaviour
 
     private float moveTowardX;
     private float moveTowardZ;
-    private float replacementSpeed;
+    public float replacementSpeed;
 
     private void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         camera = GameObject.FindGameObjectWithTag("MainCamera");
-
-        replacementSpeed = 0.005f;
     }
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, camera.transform.position, replacementSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(camera.transform.position.x, transform.position.y, camera.transform.position.z), replacementSpeed * Time.deltaTime);
 
         /*
         if (transform.position.x < moveTowardX)
         {
-            transform.position = new Vector3(transform.position.x + replacementSpeed, transform.position.y, transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(moveTowardX, transform.position.y, moveTowardZ), replacementSpeed);
             if (transform.position.x >= moveTowardX)
             {
                 transform.position = new Vector3(moveTowardX, transform.position.y, moveTowardZ);
@@ -36,7 +34,7 @@ public class Spawncircle : MonoBehaviour
         }
         else if (transform.position.x > moveTowardX)
         {
-            transform.position = new Vector3(transform.position.x - replacementSpeed, transform.position.y, transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x - replacementSpeed, transform.position.y, transform.position.z), replacementSpeed);
             if (transform.position.x <= moveTowardX)
             {
                 transform.position = new Vector3(moveTowardX, transform.position.y, moveTowardZ);
@@ -45,7 +43,7 @@ public class Spawncircle : MonoBehaviour
 
         if (transform.position.z < moveTowardZ)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + replacementSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z + replacementSpeed), replacementSpeed);
             if (transform.position.z >= moveTowardZ)
             {
                 transform.position = new Vector3(moveTowardX, transform.position.y, moveTowardZ);
@@ -74,7 +72,7 @@ public class Spawncircle : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Handles.color = Color.blue;
-        Handles.DrawWireDisc(transform.position, Vector3.up,spawnRadius);
+        //Handles.color = Color.blue;
+        //Handles.DrawWireDisc(transform.position, Vector3.up,spawnRadius);
     }
 }

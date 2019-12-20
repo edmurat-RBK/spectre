@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         audioSource[1].Play();
         audioSource[1].mute = true;
 
-        lastInput = new List<Note>(6);
+        lastInput = new List<Note>(6) { Note.NOTE_1, Note.NOTE_1, Note.NOTE_1, Note.NOTE_1, Note.NOTE_1 };
 
         player = GameObject.FindGameObjectWithTag("MainCamera");
 
@@ -114,7 +114,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Debug.Log(lastInput[0] + " " + lastInput[1] + " " + lastInput[2] + " " + lastInput[3] + " " + lastInput[4]);
         // Inputs
         if(lastInput.Count > 5)
         {
