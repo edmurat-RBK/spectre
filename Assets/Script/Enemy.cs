@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
     public void Hit()
     {
         gameObject.GetComponentInChildren<MeshRenderer>().material.color = new Color(255f, 255f, 255f, 192f);
-        gameManager.numberGhost = gameManager.numberGhost + 1;
+        
         listening = true;
     }
 
@@ -98,6 +98,7 @@ public class Enemy : MonoBehaviour
         if(note1 && note2 && note3 && note4 && note5)
         {
             gameManager.enemyAlive = false;
+            gameManager.numberGhost = gameManager.numberGhost + 1;
             Destroy(gameObject);
         }
     }
